@@ -1,0 +1,44 @@
+version: '3.7'
+services:
+  cs2-server:
+    image: joedwards32/cs2
+    container_name: cs2-dedicated
+    environment:
+      # Server configuration
+      - CS2_SERVERNAME=SERVER_NAME_HERE   # (Set the visible name for your private server)
+      - CS2_PORT=27015                    # (CS2 server listen port tcp_udp)
+      - CS2_RCON_PORT                     # (Optional, use a simple TCP proxy to have RCON listen on an alternative port. Useful for services like AWS Fargate which do not support mixed protocol ports.)
+      - CS2_LAN=0                         # (0 - LAN mode disabled, 1 - LAN Mode enabled)
+      - CS2_RCONPW=RCON_PASSWORD_HERE     # (RCON password)
+      - CS2_PW=SERVER_PASSWORD_HERE       # (CS2 server password)
+      - CS2_MAXPLAYERS=10                 # (Max players)
+      - CS2_ADDITIONAL_ARGS               # (Optional additional arguments to pass into cs2)
+
+      # Game modes
+      - CS2_GAMEALIAS=[GAME_ALIAS_HERE]  # (Game type, e.g. casual, competitive, deathmatch. See https://developer.valvesoftware.com/wiki/Counter-Strike_2/Dedicated_Servers)
+      - CS2_GAMETYPE=0                   # (Used if CS2_GAMEALIAS not defined. See https://developer.valvesoftware.com/wiki/Counter-Strike_2/Dedicated_Servers)
+      - CS2_GAMEMODE=1                   # (Used if CS2_GAMEALIAS not defined. See https://developer.valvesoftware.com/wiki/Counter-Strike_2/Dedicated_Servers)
+      - CS2_MAPGROUP=mg_active           # (Map pool)
+      - CS2_STARTMAP=de_inferno          # (Start map)
+
+      # Bots
+      - CS2_BOT_DIFFICULTY=3           # (0 - easy, 1 - normal, 2 - hard, 3 - expert)
+      - CS2_BOT_QUOTA=0                # (Number of bots)
+      - CS2_BOT_QUOTA_MODE=competitive # (fill, competitive)
+
+      # TV
+      - TV_AUTORECORD=0          # Automatically records all games as CSTV demos: 0=off, 1=on.
+      - TV_ENABLE=0              # Activates CSTV on server: 0=off, 1=on.
+      - TV_PORT=27020            # Host SourceTV port
+      - TV_PW=changeme           # CSTV password for clients
+      - TV_RELAY_PW=changeme     # CSTV password for relay proxies
+      - TV_MAXRATE=0             # World snapshots to broadcast per second. Affects camera tickrate.
+      - TV_DELAY=0               # Max CSTV spectator bandwidth rate allowed, 0 == unlimited
+    volumes:
+      - cs2:/home/steam/cs2-dedicated/  # (Change /mnt/cs2 according to your volume location)
+    ports:
+      - "27015:27015/tcp"  # TCP
+      - "27015:27015/udp"  # UDP
+      - "27020:27020/udp"  # UDP
+volumes:
+  cs2:
