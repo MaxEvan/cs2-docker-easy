@@ -1,3 +1,20 @@
+## Same image, easy config
+
+You need to have 3 things:
+  - Somewhere to run docker on Linux (VM etc.)
+  - Have curl and bash installed on that machine
+  - Be able to open the ports to make the server public
+
+Why is it better than the base image?
+
+Simple, better user experience:
+  - Run a curl command
+  - Answer a few questions
+  - Make the ports public
+
+There, you have a publicly available cs2 server to practice on with your buddies.
+
+
 [![Docker Image CI](https://github.com/joedwards32/CS2/actions/workflows/docker-image.yml/badge.svg?branch=main)](https://github.com/joedwards32/CS2/actions/workflows/docker-image.yml) [![Docker Build and Publish](https://github.com/joedwards32/CS2/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/joedwards32/CS2/actions/workflows/docker-publish.yml)
 
 # What is Counter-Strike 2?
